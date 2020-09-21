@@ -22,8 +22,36 @@ class UserQuery extends Query
        return Type::listOf(GraphQL::type('users'));
     }
 
+    // graphql argument
+    public function args(): array
+    {
+        return [
+              'id' => [
+                  'name' => 'id',
+                  'type' => Type::int()
+              ],
+              'email' => [
+                    'name' => 'email',
+                    'type' => Type::string()
+              ],
+              'limit' => [
+                  'name' => 'limit',
+                  'type' => Type::int(),
+              ]
+        ];
+    }
+
     public function resolve($root, $args)
     {
-        return User::get();
+        $user = new User;
+        if (isset($args['id'])) {
+            $user = $user->where('id', $args['id']);
+        }
+
+        if (isset($args['email'])) {
+            $user = $user->where('email', $args['email']);
+        }
+
+        return $user->get();
     }
 }
