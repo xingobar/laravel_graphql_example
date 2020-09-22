@@ -5,10 +5,13 @@ namespace App\GraphQL\Query;
 
 
 use App\User;
+use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type as GraphqlType;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Support\Facades\Log;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
+use Rebing\GraphQL\Support\SelectFields;
 
 class UserQuery extends Query
 {
@@ -41,7 +44,7 @@ class UserQuery extends Query
         ];
     }
 
-    public function resolve($root, $args)
+    public function resolve($root, $args, $context, ResolveInfo $info)
     {
         $user = new User;
         if (isset($args['id'])) {
@@ -51,7 +54,8 @@ class UserQuery extends Query
         if (isset($args['email'])) {
             $user = $user->where('email', $args['email']);
         }
-
+        $fields = $info->getFieldSelection($depth = 3);
+        Log::debug($fields);
         return $user->get();
     }
 }
