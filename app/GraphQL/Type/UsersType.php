@@ -5,6 +5,7 @@ namespace App\GraphQL\Type;
 
 
 use App\User;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type;
 use GraphQL\Type\Definition\Type as TypeDefinition;
 
@@ -31,7 +32,14 @@ class UsersType extends Type
                 'type' => TypeDefinition::string(),
                 'description' => '電子郵件'
             ],
-
+            'jobs' => [
+                'name' => 'jobs',
+                'type' => TypeDefinition::listOf(GraphQL::type('jobs')),
+            ],
+            'job' => [
+                'name' => 'job',
+                'type' => GraphQL::type('jobs'),
+            ]
         ];
     }
 }

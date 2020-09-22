@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Jobs::class, 'user_id', 'id');
     }
+
+    public function job()
+    {
+        return $this->hasOne(Jobs::class, 'user_id', 'id');
+    }
 }

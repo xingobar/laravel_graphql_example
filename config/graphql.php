@@ -103,6 +103,7 @@ return [
             'query' => [
                 // 'example_query' => ExampleQuery::class,
                 'users' => \App\GraphQL\Query\UserQuery::class,
+                'jobs' => \App\GraphQL\Query\JobsQuery::class,
             ],
             'mutation' => [
                 // 'example_mutation'  => ExampleMutation::class,
@@ -128,6 +129,7 @@ return [
         // 'relation_example'  => ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,
         'users' => \App\GraphQL\Type\UsersType::class,
+        'jobs' => \App\GraphQL\Type\JobsType::class,
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request
